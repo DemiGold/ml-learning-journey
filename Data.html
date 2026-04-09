@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML Learning Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1c1c27;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --muted: #7a7a9a;
+    --teal: #1dd1a1;
+    --blue: #54a0ff;
+    --purple: #a29bfe;
+    --amber: #feca57;
+    --coral: #ff6b6b;
+    --green: #5af078;
+    --teal-dim: rgba(29,209,161,0.12);
+    --blue-dim: rgba(84,160,255,0.12);
+    --purple-dim: rgba(162,155,254,0.12);
+    --amber-dim: rgba(254,202,87,0.12);
+    --coral-dim: rgba(255,107,107,0.12);
+    --green-dim: rgba(90,240,120,0.12);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    padding: 48px 24px 80px;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 64px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 40px;
+  }
+
+  .header-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .header h1 span { color: var(--teal); }
+
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .meta-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .meta-pill strong { color: var(--text); }
+
+  /* Section titles */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Phase cards */
+  .phases { display: flex; flex-direction: column; gap: 4px; margin-bottom: 64px; }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .phase:hover { border-color: var(--muted); }
+
+  .phase-num {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 20px 0;
+    border-right: 1px solid var(--border);
+    letter-spacing: 0.05em;
+  }
+
+  .phase-num .n {
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+    line-height: 1;
+  }
+
+  .phase-body { padding: 20px 24px; background: var(--surface); }
+
+  .phase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .phase-title { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+
+  .phase-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .phase-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid;
+  }
+
+  /* Color themes per phase */
+  .p1 .phase-num { color: var(--teal); background: var(--teal-dim); }
+  .p1 .phase-title { color: var(--teal); }
+  .p1 .skill { color: var(--teal); border-color: rgba(29,209,161,0.3); background: var(--teal-dim); }
+
+  .p2 .phase-num { color: var(--blue); background: var(--blue-dim); }
+  .p2 .phase-title { color: var(--blue); }
+  .p2 .skill { color: var(--blue); border-color: rgba(84,160,255,0.3); background: var(--blue-dim); }
+
+  .p3 .phase-num { color: var(--purple); background: var(--purple-dim); }
+  .p3 .phase-title { color: var(--purple); }
+  .p3 .skill { color: var(--purple); border-color: rgba(162,155,254,0.3); background: var(--purple-dim); }
+
+  .p4 .phase-num { color: var(--amber); background: var(--amber-dim); }
+  .p4 .phase-title { color: var(--amber); }
+  .p4 .skill { color: var(--amber); border-color: rgba(254,202,87,0.3); background: var(--amber-dim); }
+
+  .p5 .phase-num { color: var(--coral); background: var(--coral-dim); }
+  .p5 .phase-title { color: var(--coral); }
+  .p5 .skill { color: var(--coral); border-color: rgba(255,107,107,0.3); background: var(--coral-dim); }
+
+  .p6 .phase-num { color: var(--green); background: var(--green-dim); }
+  .p6 .phase-title { color: var(--green); }
+  .p6 .skill { color: var(--green); border-color: rgba(90,240,120,0.3); background: var(--green-dim); }
+
+  /* Connector arrow between phases */
+  .connector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    color: var(--border);
+    font-size: 18px;
+  }
+
+  /* Specializations */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .spec-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .spec-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .spec-purple::before { background: var(--purple); }
+  .spec-teal::before { background: var(--teal); }
+  .spec-coral::before { background: var(--coral); }
+
+  .spec-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .spec-purple .spec-icon { color: var(--purple); }
+  .spec-teal .spec-icon { color: var(--teal); }
+  .spec-coral .spec-icon { color: var(--coral); }
+
+  .spec-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .spec-sub {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .spec-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .spec-list li {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .spec-list li::before {
+    content: '→';
+    font-size: 10px;
+  }
+
+  .spec-purple .spec-list li::before { color: var(--purple); }
+  .spec-teal .spec-list li::before { color: var(--teal); }
+  .spec-coral .spec-list li::before { color: var(--coral); }
+
+  .spec-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .spec-purple .spec-badge { background: var(--purple-dim); color: var(--purple); }
+  .spec-teal .spec-badge { background: var(--teal-dim); color: var(--teal); }
+  .spec-coral .spec-badge { background: var(--coral-dim); color: var(--coral); }
+
+  /* Recommendation box */
+  .recommendation {
+    border: 1px solid rgba(84,160,255,0.4);
+    border-radius: 12px;
+    padding: 24px 28px;
+    background: var(--blue-dim);
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .rec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    white-space: nowrap;
+    padding-top: 2px;
+  }
+
+  .rec-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .rec-text strong { color: var(--blue); }
+
+  /* Timeline bar */
+  .timeline-bar {
+    margin: 48px 0;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  .tl-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .tl-track {
+    display: flex;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    gap: 2px;
+    margin-bottom: 10px;
+  }
+
+  .tl-seg { border-radius: 2px; }
+
+  .tl-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 12px;
+  }
+
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  @media print {
+    body { background: white; color: #111; padding: 24px; }
+    :root {
+      --bg: white; --surface: #f5f5f8; --surface2: #ebebf0;
+      --border: #ddd; --text: #111; --muted: #666;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .phase { grid-template-columns: 44px 1fr; }
+    .spec-grid { grid-template-columns: 1fr; }
+    .recommendation { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-tag">Personal Learning Roadmap</div>
+    <h1>Your path to<br><span>Machine Learning</span></h1>
+    <div class="header-meta">
+      <div class="meta-pill"><strong>2 hrs</strong> / day</div>
+      <div class="meta-pill"><strong>6–8 months</strong> to ML-ready</div>
+      <div class="meta-pill">Python · Pandas · SQL · ML</div>
+      <div class="meta-pill">Starting level: <strong>Python basics</strong></div>
+    </div>
+  </div>
+
+  <!-- Phase Roadmap -->
+  <div class="section-label">6-phase roadmap</div>
+
+  <!-- Timeline bar -->
+  <div class="timeline-bar">
+    <div class="tl-label">Estimated timeline at 2 hrs/day</div>
+    <div class="tl-track">
+      <div class="tl-seg" style="flex:3;background:var(--teal)"></div>
+      <div class="tl-seg" style="flex:6;background:var(--blue)"></div>
+      <div class="tl-seg" style="flex:4;background:var(--purple)"></div>
+      <div class="tl-seg" style="flex:7;background:var(--amber)"></div>
+      <div class="tl-seg" style="flex:7;background:var(--coral)"></div>
+      <div class="tl-seg" style="flex:5;background:var(--green)"></div>
+    </div>
+    <div class="tl-labels">
+      <span>Month 1</span>
+      <span>Month 2</span>
+      <span>Month 3</span>
+      <span>Month 4</span>
+      <span>Month 5–6</span>
+      <span>Month 7–8+</span>
+    </div>
+  </div>
+
+  <div class="phases">
+
+    <div class="phase p1">
+      <div class="phase-num"><span class="n">1</span></div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Fill Python gaps</div>
+          <div class="phase-time">~2–3 weeks</div>
+        </div>
+        <div class="phase-desc">Close the gaps from CS50 — file handling, error handling, and OOP basics. End with a real project.</div>
+        <div class="skills">
+          <span class="skill">File I/O</span>
+          <span class="skill">Error handling</span>
+          <span class="skill">OOP basics</span>
+          <span class="skill">Project: expense tracker</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector">↓</div>
+
+    <div class="phase p2">
+      <div class="phase-num"><span class="n">2</span></div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Data tools (ML prerequisites)</div>
+          <div class="phase-time">~5–6 weeks</div>
+        </div>
+        <div class="phase-desc">Core data skills every ML engineer needs daily. SQL and EDA are treated as tools, not a DA career track.</div>
+        <div class="skills">
+          <span class="skill">NumPy</span>
+          <span class="skill">Pandas</span>
+          <span class="skill">SQL basics</span>
+          <span class="skill">Matplotlib</span>
+          <span class="skill">Seaborn</span>
+          <span class="skill">EDA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector">↓</div>
+
+    <div class="phase p3">
+      <div class="phase-num"><span class="n">3</span></div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Applied statistics for ML</div>
+          <div class="phase-time">~3–4 weeks</div>
+        </div>
+        <div class="phase-desc">Only the statistics ML actually uses. No heavy theory — distributions, probability, correlation, and Bayes.</div>
+        <div class="skills">
+          <span class="skill">Distributions</span>
+          <span class="skill">Hypothesis testing</span>
+          <span class="skill">Correlation</span>
+          <span class="skill">Probability &amp; Bayes</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector">↓</div>
+
+    <div class="phase p4">
+      <div class="phase-num"><span class="n">4</span></div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Core ML</div>
+          <div class="phase-time">~6–8 weeks</div>
+        </div>
+        <div class="phase-desc">Scikit-learn is your main tool here. Build, evaluate, and tune real models on real datasets.</div>
+        <div class="skills">
+          <span class="skill">Scikit-learn</span>
+          <span class="skill">Regression</span>
+          <span class="skill">Classification</span>
+          <span class="skill">Model evaluation</span>
+          <span class="skill">Feature engineering</span>
+          <span class="skill">Pipelines</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector">↓</div>
+
+    <div class="phase p5">
+      <div class="phase-num"><span class="n">5</span></div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Deep learning intro</div>
+          <div class="phase-time">~6–8 weeks</div>
+        </div>
+        <div class="phase-desc">Neural networks and PyTorch. Start competing on Kaggle. This is where portfolios get built.</div>
+        <div class="skills">
+          <span class="skill">Neural networks</span>
+          <span class="skill">PyTorch</span>
+          <span class="skill">CNNs</span>
+          <span class="skill">NLP basics</span>
+          <span class="skill">Kaggle competitions</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector">↓</div>
+
+    <div class="phase p6">
+      <div class="phase-num"><span class="n">6</span></div>
+      <div class="phase-body">
+        <div class="phase-header">
+          <div class="phase-title">Specialize</div>
+          <div class="phase-time">~3–6 months · ongoing</div>
+        </div>
+        <div class="phase-desc">Pick your lane based on what excites you most. All three paths share the same foundation below.</div>
+        <div class="skills">
+          <span class="skill">ML Engineer</span>
+          <span class="skill">Data Scientist</span>
+          <span class="skill">Data Engineer</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Specialization Section -->
+  <div class="section-label">specialization paths</div>
+
+  <div class="spec-grid">
+
+    <div class="spec-card spec-purple">
+      <div class="spec-icon">Path 01</div>
+      <div class="spec-title">ML Engineer</div>
+      <div class="spec-sub">Build and deploy ML systems in production. Strong Python + engineering skills rewarded.</div>
+      <ul class="spec-list">
+        <li>PyTorch / TensorFlow</li>
+        <li>Docker + FastAPI</li>
+        <li>MLflow, model serving</li>
+        <li>CI/CD for ML pipelines</li>
+      </ul>
+      <span class="spec-badge">Recommended starting target</span>
+    </div>
+
+    <div class="spec-card spec-teal">
+      <div class="spec-icon">Path 02</div>
+      <div class="spec-title">Data Scientist</div>
+      <div class="spec-sub">Research-heavy. Design experiments, build models, interpret results for business decisions.</div>
+      <ul class="spec-list">
+        <li>Advanced statistics</li>
+        <li>R or Python notebooks</li>
+        <li>A/B testing + experimentation</li>
+        <li>Business communication</li>
+      </ul>
+      <span class="spec-badge">Often needs strong portfolio</span>
+    </div>
+
+    <div class="spec-card spec-coral">
+      <div class="spec-icon">Path 03</div>
+      <div class="spec-title">Data Engineer</div>
+      <div class="spec-sub">Build the pipelines that feed data to ML systems. More backend + cloud oriented.</div>
+      <ul class="spec-list">
+        <li>Apache Spark + Kafka</li>
+        <li>Airflow, dbt</li>
+        <li>AWS / GCP / Azure</li>
+        <li>Advanced SQL</li>
+      </ul>
+      <span class="spec-badge">Good if you enjoy infra</span>
+    </div>
+
+  </div>
+
+  <div class="recommendation">
+    <div class="rec-label">Advice</div>
+    <div class="rec-text">
+      You don't need to decide now. <strong>Phases 1–5 are identical regardless of specialization.</strong> As you build projects, you'll develop a natural feel for which lane excites you most. ML Engineer is the safest first target — it doesn't require a degree and rewards the exact skills you're building.
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-text">Generated for your personal learning journey</div>
+    <div class="footer-text">2 hrs/day · Lagos, Nigeria · 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
