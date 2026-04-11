@@ -1,0 +1,4 @@
+Food, 2500
+Transport, 1000
+Data, 1000
+Rent, 15000
