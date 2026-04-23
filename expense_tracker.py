@@ -47,8 +47,14 @@ while True:
         print("Saved Successfully ✅\n")
 
     elif choice == "2":
-        pass
-
+        try:
+            with open("expenses.csv", "r", newline="") as file:
+                reader = csv.reader(file)
+                next(reader)  # skip header
+                for row in reader:
+                    print(f"Category: {row[0]}, Amount: {row[1]}")
+        except FileNotFoundError:
+            print("No expenses recorded yet.\n")
     elif choice == "3":
         pass
 
