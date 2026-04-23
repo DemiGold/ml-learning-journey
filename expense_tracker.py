@@ -52,11 +52,20 @@ while True:
                 reader = csv.reader(file)
                 next(reader)  # skip header
                 for row in reader:
-                    print(f"Category: {row[0]}, Amount: {row[1]}")
+                    print(f"{row[0]}: ₦{row[1]}")
         except FileNotFoundError:
             print("No expenses recorded yet.\n")
     elif choice == "3":
-        pass
+        total = 0
+        try:
+            with open("expenses.csv", "r", newline="") as file:
+                reader = csv.reader(file)
+                next(reader)  # skip header
+                for row in reader:
+                    total += int(row[1])
+            print(f"Total Spent: {total}\n")
+        except FileNotFoundError:
+            print("No expenses recorded yet.\n")
 
     elif choice == "4":
         break
