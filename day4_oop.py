@@ -54,11 +54,31 @@ while True:
 
     if choice == "1":
         add_expense()
+        print("Expense Added Successfully!\n")
         
     elif choice == "2":
-        pass
+        try:
+            with open("expense.csv", "r", newline="") as file:
+                reader = csv.reader(file)
+                next(reader)  # skip header
+                for row in reader:
+                    print(Expense(row[0], row[1]))
+                print()
+        except FileNotFoundError:
+            print("No expenses recorded yet.\n")
+
     elif choice == "3":
-        pass
+        total = 0
+        try:
+            with open("expense.csv", "r", newline="") as file:
+                reader = csv.reader(file)
+                next(reader)  # skip header
+                for row in reader:
+                    total += int(row[1])
+            print(f"Total Spent: {total}\n")
+        except FileNotFoundError:
+            print("No expenses recorded yet.\n")
+
     elif choice == "4":
         break
     else:
